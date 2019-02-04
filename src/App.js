@@ -105,7 +105,7 @@ class App extends Component {
           );
         })} */}
         {/* do we have movies? if yes, _renderMovies, otherwise 'Loading' */}
-        {movies ? this._renderMovies() : "Loading"}
+        {movies ? this._renderMovies() : "One Moment.."}
       </div>
     );
   }
