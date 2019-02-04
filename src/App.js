@@ -34,25 +34,58 @@ class App extends Component {
   /* Whenever state changes inside of component, it will render again. */
   componentWillMount() {}
 
+  // componentDidMount() {
+  //   setTimeout(() => {
+  //     this.setState({
+  //       greeting: "Hello again!"
+  //     });
+  //   }, 2000);
+  // }
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        greeting: "Hello again!"
-      });
-    }, 2000);
+        movies: [
+          // including existing three
+          ...this.state.movies,
+          {
+            title: "Transpotting",
+            poster: "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
+          }
+        ]
+      })
+    }, 1000)
   }
 
   state = {
-    greeting: "Hello!"
+    greeting: "Hello!",
+    movies : [
+      {
+        title: "Matrix",
+        poster: "https://en.wikipedia.org/wiki/The_Matrix"
+      },
+      {
+        title: "Full Metal Jacket",
+        poster: "https://en.wikipedia.org/wiki/Full_Metal_Jacket"
+      },
+      {
+        title: "Oldboy",
+        poster: "https://en.wikipedia.org/wiki/File:Oldboykoreanposter.jpg"
+      },
+      {
+        title: "Star Wars",
+        poster:
+          "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
+      }
+    ]
   };
 
   /* All components should have the render function */
   render() {
     return (
       <div className="App">
-        {this.state.greeting}
+        {/* {this.state.greeting} */}
         {/* taking movies array and mapping through it  */}
-        {movies.map((movie, index) => {
+        {this.state.movies.map((movie, index) => {
           return (
             <Movie title={movie.title} poster={movie.poster} key={index} />
           );
