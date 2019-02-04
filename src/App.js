@@ -11,6 +11,9 @@ class App extends Component {
    * Update: componentWillReceiveProps() -> shouldComponentUpdate() -> componentWillUpdate() -> render() -> componentDidUpdate()
    */
 
+  state = {
+  };
+
   /* Whenever state changes inside of component, it will render again. */
   componentWillMount() {}
 
@@ -22,7 +25,12 @@ class App extends Component {
   //   }, 2000);
   // }
   componentDidMount() {
-    fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count')
+    this._getMovies();
+
+    // fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count')
+    // .then(potato => potato.json()) // take response and make it to json
+    // .then(json => console.log(json))
+    // .catch(err => console.log(err)) // when it has some errors
     // setTimeout(() => {
     //   this.setState({
     //     movies: [
@@ -54,14 +62,22 @@ class App extends Component {
     // }, 1000)
   }
 
-  state = {
-  };
-
   _renderMovies = () => {
     const movies = this.state.movies.map((movie, index) => {
       return <Movie title={movie.title} poster={movie.poster} key={index} />
     })
     return movies;
+  }
+
+  _getMovies = () => {
+
+  }
+
+  _callApi = () => {
+    fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count')
+    .then(potato => potato.json()) // take response and make it to json
+    .then(json => console.log(json))
+    .catch(err => console.log(err)) // when it has some errors
   }
   /* All components should have the render function */
   render() {
