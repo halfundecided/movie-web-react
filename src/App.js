@@ -2,26 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Movie from "./components/Movie/Movie.js";
 
-const movies = [
-  {
-    title: "Matrix",
-    poster: "https://en.wikipedia.org/wiki/The_Matrix"
-  },
-  {
-    title: "Full Metal Jacket",
-    poster: "https://en.wikipedia.org/wiki/Full_Metal_Jacket"
-  },
-  {
-    title: "Oldboy",
-    poster: "https://en.wikipedia.org/wiki/File:Oldboykoreanposter.jpg"
-  },
-  {
-    title: "Star Wars",
-    poster:
-      "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
-  }
-];
-
 class App extends Component {
   /**
    * Component Lifecycle
@@ -46,50 +26,55 @@ class App extends Component {
       this.setState({
         movies: [
           // including existing three
-          ...this.state.movies,
+          // ...this.state.movies,
           {
             title: "Transpotting",
             poster: "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
-          }
+          },
+          {
+            title: "Matrix",
+            poster: "https://en.wikipedia.org/wiki/The_Matrix"
+          },
+          {
+            title: "Full Metal Jacket",
+            poster: "https://en.wikipedia.org/wiki/Full_Metal_Jacket"
+          },
+          {
+            title: "Oldboy",
+            poster: "https://en.wikipedia.org/wiki/File:Oldboykoreanposter.jpg"
+          },
+          {
+            title: "Star Wars",
+            poster:
+              "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
+          } 
         ]
       })
     }, 1000)
   }
 
   state = {
-    greeting: "Hello!",
-    movies : [
-      {
-        title: "Matrix",
-        poster: "https://en.wikipedia.org/wiki/The_Matrix"
-      },
-      {
-        title: "Full Metal Jacket",
-        poster: "https://en.wikipedia.org/wiki/Full_Metal_Jacket"
-      },
-      {
-        title: "Oldboy",
-        poster: "https://en.wikipedia.org/wiki/File:Oldboykoreanposter.jpg"
-      },
-      {
-        title: "Star Wars",
-        poster:
-          "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
-      }
-    ]
   };
 
+  _renderMovies = () => {
+    const movies = this.state.movies.map((movie, index) => {
+      return <Movie title={movie.title} poster={movie.poster} key={index} />
+    })
+    return movies;
+  }
   /* All components should have the render function */
   render() {
     return (
       <div className="App">
         {/* {this.state.greeting} */}
         {/* taking movies array and mapping through it  */}
-        {this.state.movies.map((movie, index) => {
+        {/* {this.state.movies.map((movie, index) => {
           return (
             <Movie title={movie.title} poster={movie.poster} key={index} />
           );
-        })}
+        })} */}
+        {/* do we have movies? if yes, _renderMovies, otherwise 'Loading' */}
+        {this.state.movies ? this._renderMovies() : 'Loading'}
       </div>
     );
   }
