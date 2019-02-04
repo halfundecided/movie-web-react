@@ -22,35 +22,36 @@ class App extends Component {
   //   }, 2000);
   // }
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        movies: [
-          // including existing three
-          // ...this.state.movies,
-          {
-            title: "Transpotting",
-            poster: "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
-          },
-          {
-            title: "Matrix",
-            poster: "https://en.wikipedia.org/wiki/The_Matrix"
-          },
-          {
-            title: "Full Metal Jacket",
-            poster: "https://en.wikipedia.org/wiki/Full_Metal_Jacket"
-          },
-          {
-            title: "Oldboy",
-            poster: "https://en.wikipedia.org/wiki/File:Oldboykoreanposter.jpg"
-          },
-          {
-            title: "Star Wars",
-            poster:
-              "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
-          } 
-        ]
-      })
-    }, 1000)
+    fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count')
+    // setTimeout(() => {
+    //   this.setState({
+    //     movies: [
+    //       // including existing three
+    //       // ...this.state.movies,
+    //       {
+    //         title: "Transpotting",
+    //         poster: "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
+    //       },
+    //       {
+    //         title: "Matrix",
+    //         poster: "https://en.wikipedia.org/wiki/The_Matrix"
+    //       },
+    //       {
+    //         title: "Full Metal Jacket",
+    //         poster: "https://en.wikipedia.org/wiki/Full_Metal_Jacket"
+    //       },
+    //       {
+    //         title: "Oldboy",
+    //         poster: "https://en.wikipedia.org/wiki/File:Oldboykoreanposter.jpg"
+    //       },
+    //       {
+    //         title: "Star Wars",
+    //         poster:
+    //           "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
+    //       } 
+    //     ]
+    //   })
+    // }, 1000)
   }
 
   state = {
