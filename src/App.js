@@ -11,11 +11,10 @@ class App extends Component {
    * Update: componentWillReceiveProps() -> shouldComponentUpdate() -> componentWillUpdate() -> render() -> componentDidUpdate()
    */
 
-  state = {
-  };
+  state = {};
 
   /* Whenever state changes inside of component, it will render again. */
-  componentWillMount() {}
+  //componentWillMount() {}
 
   // componentDidMount() {
   //   setTimeout(() => {
@@ -56,7 +55,7 @@ class App extends Component {
     //         title: "Star Wars",
     //         poster:
     //           "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/10/star-wars-force-awakens-official-poster.jpg"
-    //       } 
+    //       }
     //     ]
     //   })
     // }, 1000)
@@ -64,25 +63,40 @@ class App extends Component {
 
   _renderMovies = () => {
     const movies = this.state.movies.map((movie, index) => {
-      return <Movie title={movie.title} poster={movie.poster} key={index} />
-    })
+      return (
+        <Movie
+          title={movie.title_english}
+          poster={movie.large_cover_image}
+          key={movie.id}
+          genres={movie.genres}
+          synopsis={movie.synopsis}
+        />
+      );
+    });
     return movies;
-  }
+  };
 
-  _getMovies = () => {
-
-  }
+  _getMovies = async () => {
+    // await mode for _callApi() function: setState won't happen until _callApi() finished
+    const movies = await this._callApi();
+    this.setState({
+      movies
+    });
+  };
 
   _callApi = () => {
-    fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count')
-    .then(potato => potato.json()) // take response and make it to json
-    .then(json => console.log(json))
-    .catch(err => console.log(err)) // when it has some errors
-  }
+    return fetch(
+      "https://yts.am/api/v2/list_movies.json?sort_by=download_count"
+    )
+      .then(potato => potato.json()) // take response and make it to json
+      .then(json => json.data.movies)
+      .catch(err => console.log(err)); // when it has some errors
+  };
   /* All components should have the render function */
   render() {
+    const { movies } = this.state;
     return (
-      <div className="App">
+      <div className={movies ? "App" : "App--loading"}>
         {/* {this.state.greeting} */}
         {/* taking movies array and mapping through it  */}
         {/* {this.state.movies.map((movie, index) => {
@@ -91,7 +105,7 @@ class App extends Component {
           );
         })} */}
         {/* do we have movies? if yes, _renderMovies, otherwise 'Loading' */}
-        {this.state.movies ? this._renderMovies() : 'Loading'}
+        {movies ? this._renderMovies() : "Loading"}
       </div>
     );
   }
